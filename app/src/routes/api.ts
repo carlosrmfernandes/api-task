@@ -1,23 +1,39 @@
 import { Router } from 'express';
-import UserController from '../controllers/UserController';
+import TaskController from '../controllers/TaskController';
 import CheckAndValidations from '../middlewares/ChecksAndValidations';
 
 const appRouter = Router();
 
-const userController = new UserController();
+const taskController = new TaskController();
 const checkAndValidations = new CheckAndValidations();
 
 appRouter.post(
-    '/user', 
+    '/task', 
     checkAndValidations.checkMandatoryData, 
     checkAndValidations.validateData, 
-    userController.create
+    taskController.create
 )
 
 appRouter.get(
-    '/ping',
+    '/tasks',
+    taskController.index
+);
+
+
+appRouter.get(
+    '/task/:taskId',
+    taskController.show
+);
+
+appRouter.delete(
+    '/task/:taskId',
+    taskController.delete
+);
+
+appRouter.get(
+    '/test-api',
     (req, res) => {
-        return res.send('pong');
+        return res.send('api rodando');
     }
 );
 

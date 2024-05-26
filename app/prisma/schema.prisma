@@ -8,38 +8,18 @@ datasource db {
   url           = env("DATABASE_URL")
 }
 
-enum PersonType {
-    PHYSICAL
-    JURIDICAL
+enum Priority {
+    ALTA
+    MEDIA
+    BAIXA
 }
 
-model User {
-    id             String       @id @default(uuid())
-    type           PersonType
-    cnpj           String?      @unique
-    cpf            String
-    name           String
-    celPhone       String
-    telPhone       String
-    email          String       @unique
+model Task {
+    id               String       @id @default(uuid())
+    priority         Priority
+    title            String       @unique
+    description      String
+    completion_date  String
 
-    userAddresses UserAddress[]
-
-    @@map("users")
-}
-
-model UserAddress {
-    id           String       @id @default(uuid())
-    userId       String       @unique
-    cep          String       
-    streetName   String       
-    streetNumber String
-    complement   String?
-    neighborhood String
-    city         String
-    state        String
-
-    user      User     @relation(fields: [userId], references: [id])
-    
-    @@map("user_addresses")
+    @@map("tasks")
 }

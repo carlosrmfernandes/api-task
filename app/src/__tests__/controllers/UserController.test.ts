@@ -1,34 +1,25 @@
 import { Request, Response } from 'express';
-import UserController from '../../controllers/UserController';
-import CreateUserService from '../../services/CreateUserService';
+import TaskController from '../../controllers/TaskController';
+import CreateTaskService from '../../services/CreateTaskService';
 
-jest.mock('../../services/CreateUserService', () => ({
+jest.mock('../../services/CreateTaskService', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-describe('User Controller', () => {
+describe('Task Controller', () => {
   let mockRequest: Partial<Request>;
   let mockResponse: Partial<Response>;
-  let userController: UserController;
+  let taskController: TaskController;
   let mockExecute: jest.Mock;
 
   beforeEach(() => {
     mockRequest = {
       body: {
-        type: 'PHYSICAL',
-        name: 'John Doe',
-        cpf: '12345678900',
-        celPhone: '11987560254',
-        telPhone: '1139876543',
-        email: 'john.doe@gmail.com',
-        cep: '01234-567',
-        streetName: 'Rua dos Bosques',
-        streetNumber: '1234',
-        complement: 'ap23',
-        neighborhood: 'Barra Rasa',
-        city: 'São Paulo',
-        state: 'SP',
+        title: 'Test',
+        description: 'Test',
+        completion_date: '2024-05-26',
+        priority: 'ALTA'        
       },
     };
 
@@ -37,10 +28,10 @@ describe('User Controller', () => {
       json: jest.fn(),
     };
 
-    userController = new UserController();
+    taskController = new TaskController();
     mockExecute = jest.fn();
     (
-      CreateUserService as jest.MockedClass<typeof CreateUserService>
+      CreateTaskService as jest.MockedClass<typeof CreateTaskService>
     ).mockImplementation(() => ({
       execute: mockExecute,
     }));
@@ -51,49 +42,28 @@ describe('User Controller', () => {
   });
 
   describe('create', () => {
-    it('should create a user successfully', async () => {
+    it('should create a Task successfully', async () => {
       const expectedResult = {
-        createdUser: {
+        task: {
           id: 1,
-          type: 'PHYSICAL',
-          name: 'John Doe',
-          cpf: '12345678900',
-          celPhone: '11987560254',
-          telPhone: '1139876543',
-          email: 'john.doe@gmail.com',
-        },
-        createUserAddress: {
-          id: 1,
-          cep: '01234-567',
-          streetName: 'Rua dos Bosques',
-          streetNumber: '1234',
-          complement: 'ap23',
-          neighborhood: 'Barra Rasa',
-          city: 'São Paulo',
-          state: 'SP',
-        },
+          title: 'Test',
+          description: 'Test',
+          completion_date: '2024-05-26',
+          priority: 'ALTA'       
+        }
       };
       mockExecute.mockResolvedValueOnce(expectedResult);
 
-      await userController.create(
+      await taskController.create(
         mockRequest as Request,
         mockResponse as Response
       );
 
       expect(mockExecute).toHaveBeenCalledWith({
-        type: 'PHYSICAL',
-        name: 'John Doe',
-        cpf: '12345678900',
-        celPhone: '11987560254',
-        telPhone: '1139876543',
-        email: 'john.doe@gmail.com',
-        cep: '01234-567',
-        streetName: 'Rua dos Bosques',
-        streetNumber: '1234',
-        complement: 'ap23',
-        neighborhood: 'Barra Rasa',
-        city: 'São Paulo',
-        state: 'SP',
+          title: 'Test',
+          description: 'Test',
+          completion_date: '2024-05-26',
+          priority: 'ALTA'       
       });
       expect(mockResponse!.status).toHaveBeenCalledWith(200);
       expect(mockResponse!.json).toHaveBeenCalledWith(expectedResult);
@@ -103,7 +73,7 @@ describe('User Controller', () => {
         const errorMessage = 'Some error occurred';
         mockExecute.mockRejectedValueOnce(new Error(errorMessage));
       
-        await userController.create(mockRequest as Request, mockResponse as Response);
+        await taskController.create(mockRequest as Request, mockResponse as Response);
       
         expect(mockResponse!.status).toHaveBeenCalledWith(400);
         expect(mockResponse!.json).toHaveBeenCalledWith(

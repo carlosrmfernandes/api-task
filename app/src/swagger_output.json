@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "User Registration API",
-    "description": "Provides resources to interact with User Registration API",
+    "title": "Task Registration API",
+    "description": "Provides resources to interact with Task Registration API",
     "version": "1.0.0"
   },
   "host": "localhost:4568",
@@ -17,9 +17,9 @@
     "application/json"
   ],
   "paths": {
-    "/v1/user": {
+    "/v1/task": {
       "post": {
-        "description": "",
+        "description": "Create a new task",
         "parameters": [
           {
             "name": "body",
@@ -27,43 +27,20 @@
             "schema": {
               "type": "object",
               "properties": {
-                "type": {
+                "title": {
+                  "type": "string",
                   "example": "any"
                 },
-                "cnpj": {
+                "description": {
+                  "type": "string",
                   "example": "any"
                 },
-                "cpf": {
+                "completion_date": {
+                  "type": "string",
                   "example": "any"
                 },
-                "name": {
-                  "example": "any"
-                },
-                "celPhone": {
-                  "example": "any"
-                },
-                "telPhone": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "cep": {
-                  "example": "any"
-                },
-                "streetName": {
-                  "example": "any"
-                },
-                "streetNumber": {
-                  "example": "any"
-                },
-                "neighborhood": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "state": {
+                "priority": {
+                  "type": "string",
                   "example": "any"
                 }
               }
@@ -80,12 +57,64 @@
         }
       }
     },
-    "/v1/ping": {
+    "/v1/tasks": {
       "get": {
-        "description": "",
+        "description": "Get all tasks",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Example response:\n```json\n{\n  \"tasks\": [\n    {\n      \"id\": \"17c5e134-0b35-496e-851f-9dd3dc5605ff\",\n      \"priority\": \"ALTA\",\n      \"title\": \"Test 04\",\n      \"description\": \"Test\",\n      \"completion_date\": \"2024-05-26\"\n    }\n  ]\n}"
+          }
+        }
+      }
+    },
+    "/v1/task/{taskId}": {
+      "get": {
+        "description": "Get a task by ID",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of the task to be obtained",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Example response:\n```json\n{\n  \"task\": {\n      \"id\": \"17c5e134-0b35-496e-851f-9dd3dc5605ff\",\n      \"priority\": \"ALTA\",\n      \"title\": \"Test 04\",\n      \"description\": \"Test\",\n      \"completion_date\": \"2024-05-26\"\n    }\n }"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a task by ID",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of the task to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Example response:\n```json\n{\n  \"success\": true\n }"
+          },
+          "404": {
+            "description": "Task not found"
+          },
+          "500": {
+            "description": "Error deleting task"
+          }
+        }
+      }
+    },
+    "/v1/test-api": {
+      "get": {
+        "description": "Check if the API is running",
+        "responses": {
+          "200": {
+            "description": "API is running"
           }
         }
       }

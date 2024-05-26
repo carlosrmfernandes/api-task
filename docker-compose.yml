@@ -1,8 +1,22 @@
 version: '3.8'
 
 services:
-  mysqldb:
+  app:  
+    build: .
+    container_name: api
+    ports:
+      - '4568:4568'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - my_network
+    depends_on:
+      - task_db
+
+  task_db:
     platform: linux/x86_64
+    container_name: task_db
     image: mysql:5.6
     restart: unless-stopped
     env_file: ./.env
@@ -13,3 +27,8 @@ services:
       - $MYSQLDB_PORT:3306
     volumes:
       - ./data/:/var/lib/mysql
+    networks:
+      - my_network
+
+networks:
+  my_network:
