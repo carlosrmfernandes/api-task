@@ -1,49 +1,72 @@
-## Backend
+# APi
+### DOCUMENTAÇÃO
 
-Seja bem vindo ao teste de backend.
 
-### Para iniciar o banco de dados é necessario ter o docker-compose instalado em sua máquina:
-- Crie um diretório na raiz do projeto chamado `data`
-- Rode o seguinte comando para criar um container Docker de um DB MySQL:
+## Para iniciar o serviço 
+Essas instruções farão com que você tenha uma cópia do projeto em execução na sua máquina local para fins de desenvolvimento e teste. Veja a implantação de notas sobre como implantar o projeto em um sistema ativo.
 
-```
-    docker-compose up -d
-```
-
-o docker-compose vai criar um container de um MySQL e você poderá acessar via localhost:3306 e a senha do usuário **root** é **senha_root_123**
-
-### Para instalar as dependências da aplicação, execute o comando:
+## Plataforma para execução do projeto
 
 ```
-    npm install
+Docker
+```
+Para mais informações clique [aqui](https://docs.docker.com/) para visitar a documentação oficial do docker
+
+## Servidores e Portas 
+| Serviço | Porta  |
+|--|--|
+| node | 4568 |
+| mysql | 3306 |
+
+## Design de software
+
+
+```
+S O L I D 
 ```
 
-### Para configurar o banco de dados execute os comandos:
-- Para injetar alterações do schema prisma dentro da biblioteca
-```
-    npm run generate
-```
+## Framework
 
-- Para criar a migratio sem executa-la
 ```
-    npx prisma migrate dev --name {MigrationName} --create-only
-```
-**Substitua {MigrationName} pelo nome escolhido para sua migration**
-
-- Para fazer a inserção das migrations não executadas:
-```
-    npm run migrate
+Express
 ```
 
-### Para iniciar o servidor express basta executar o seguinte comando:
+## Pré-requisitos
 
-    npm start
-    ou
-    yarn start
+```
+Criar um diretório na are trabalho
+Clonar o projecto dentro desse diretório
+```
 
-### Documentação OpenAPI 3.0 - SWAGGER
+Executar o docker compuser
+```
+docker-compose up 
+```
 
-- Após servidor iniciado, acesse `localhost:4568/api-docs` para visualizar a documentação da API.
+## Comandos básicos 
+
+```
+#para entrar no api
+docker exec -it api sh
+
+#Executa os seguintes comando
+npm run generate
+
+npm run migrate
+```
+
+## Banco de dados
+Configura o seu banco de dados 
+
+Acesse o container pgadmin via browser
+
+```
+task_db:3306
+```
+
+## Teste Unintário  
+
+Acessar o container onde esta à aplicacão e dentro do diretório do projecto execute o seguinte comando para executar os testes
 
 ### TESTE - JEST
 
@@ -63,3 +86,7 @@ o docker-compose vai criar um container de um MySQL e você poderá acessar via 
         "priority": "ALTA"      
     }
 ```
+
+### Documentação OpenAPI 3.0 - SWAGGER
+
+- Após servidor iniciado, acesse `localhost:4568/api-docs` para visualizar a documentação da API.
