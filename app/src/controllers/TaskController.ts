@@ -42,6 +42,20 @@ export default class TaskController {
         }
     }
 
+    public async update(req: Request, res: Response) {
+        try {
+            const taskId = req.params.taskId;
+            const { ...taskBody } = req.body;
+            
+            const createTaskService = new CreateTaskService();
+            const  task  = await createTaskService.update(taskId, { ...taskBody });
+            
+            return res.status(200).json({ task });
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    }
+
     public async delete(req: Request, res: Response) {
         try {
             const taskId = req.params.taskId;

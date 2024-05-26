@@ -17,7 +17,7 @@ export default class CheckAndValidations {
 
     if (!bodyData.description) throw new AppError('Description is needed.', 400);
 
-    if (!bodyData.completion_date) throw new AppError('Completion Date is needed.', 400);
+
 
     next();
   }

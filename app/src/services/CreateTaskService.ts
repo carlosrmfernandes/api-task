@@ -43,6 +43,33 @@ export default class CreateTaskService {
     return task;
   }
 
+  public async update(taskId: string, { ...taskBody }: ICreateTaskProps): Promise<Task> {
+
+    const taskData = {
+      title: taskBody.title,
+      description: taskBody.description,
+      completion_date: taskBody.completion_date,
+      priority: taskBody.priority,
+    };
+
+    if (taskData.title) {
+      const existingTask = await prismaClient.task.findUnique({
+        where: { title: taskData.title },
+      });
+
+      if (existingTask && existingTask.id !== taskId) {
+        throw new AppError('A task with this title already exists.', 400);
+      }
+    }
+
+    const updatedTask = await prismaClient.task.update({
+      where: { id: taskId },
+      data: taskData,
+    });
+
+    return updatedTask;
+  }
+
   public async delete(taskId: string): Promise<boolean> {
     const deletedTask = await prismaClient.task.delete({
       where: {
@@ -51,5 +78,5 @@ export default class CreateTaskService {
     });
     return !!deletedTask;
   }
-
+  
 }

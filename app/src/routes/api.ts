@@ -30,6 +30,11 @@ appRouter.delete(
     taskController.delete
 );
 
+appRouter.put(
+    '/task/:taskId',
+    taskController.update
+);
+
 appRouter.get(
     '/test-api',
     (req, res) => {

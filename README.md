@@ -31,6 +31,12 @@ S O L I D
 Express
 ```
 
+## ORM
+
+```
+Prisma
+```
+
 ## Pré-requisitos
 
 ```
@@ -46,10 +52,11 @@ docker-compose up
 ## Comandos básicos 
 
 ```
-#para entrar no api
+- Entrar no container api
+
 docker exec -it api sh
 
-#Executa os seguintes comando
+- Executa os seguintes comando
 npm run generate
 
 npm run migrate
@@ -58,10 +65,8 @@ npm run migrate
 ## Banco de dados
 Configura o seu banco de dados 
 
-Acesse o container pgadmin via browser
-
 ```
-task_db:3306
+Postgre
 ```
 
 ## Teste Unintário  

@@ -107,6 +107,57 @@
             "description": "Error deleting task"
           }
         }
+      },
+      "put": {
+        "description": "Update a task by ID",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of the task to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Test 03"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Test olaaaa"
+                },
+                "completion_date": {
+                  "type": "string",
+                  "example": "2024-05-26"
+                },
+                "priority": {
+                  "type": "string",
+                  "example": "ALTA"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Example response:\n```json\n{\n  \"task\": {\n      \"id\": \"17c5e134-0b35-496e-851f-9dd3dc5605ff\",\n      \"priority\": \"ALTA\",\n      \"title\": \"Test 03\",\n      \"description\": \"Test olaaaa\",\n      \"completion_date\": \"2024-05-26\"\n    }\n }"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Task not found"
+          },
+          "500": {
+            "description": "Error updating task"
+          }
+        }
       }
     },
     "/v1/test-api": {
