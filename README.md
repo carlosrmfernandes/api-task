@@ -45,12 +45,10 @@ docker-compose up
 
 ## Comandos básicos 
 
-##Para entrar no api
-
 ```
+#para entrar no api
 docker exec -it api sh
 
-```
 #Executa os seguintes comando
 npm run generate
 
@@ -77,6 +75,7 @@ Acessar o container onde esta à aplicacão e dentro do diretório do projecto e
     npm run test
 ``` 
 - Ainda há testes a serem criados para cobrir um número maior de casos de uso.
+
 
 ### Documentação OpenAPI 3.0 - SWAGGER
 
