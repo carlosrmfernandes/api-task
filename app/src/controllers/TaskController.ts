@@ -46,11 +46,18 @@ export default class TaskController {
         try {
             const taskId = req.params.taskId;
             const { ...taskBody } = req.body;
-            
+
             const createTaskService = new CreateTaskService();
-            const  task  = await createTaskService.update(taskId, { ...taskBody });
+
+            const task = await createTaskService.getTaskById(taskId);
+        
+            if (!task) {
+                return res.status(404).json({ error: 'Tarefa não encontrada' });
+            }
+
+            const  updateTask  = await createTaskService.update(taskId, { ...taskBody });
             
-            return res.status(200).json({ task });
+            return res.status(200).json({ updateTask });
         } catch (error) {
             return res.status(400).json({ error });
         }
@@ -67,7 +74,7 @@ export default class TaskController {
                 return res.status(404).json({ error: 'Tarefa não encontrada' });
             }
 
-            const  deletedTask  = await createTaskService.delete(taskId);
+            const deletedTask  = await createTaskService.delete(taskId);
             
             return res.status(200).json({ deletedTask });
         } catch (error) {
