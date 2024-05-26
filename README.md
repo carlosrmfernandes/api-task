@@ -52,11 +52,12 @@ docker-compose up
 ## Comandos básicos 
 
 ```
-- Entrar no container api
+Entrar no container api
 
 docker exec -it api sh
 
-- Executa os seguintes comando
+Executa os seguintes comando
+
 npm run generate
 
 npm run migrate
