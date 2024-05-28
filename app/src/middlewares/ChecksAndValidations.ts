@@ -10,7 +10,7 @@ export default class CheckAndValidations {
     const bodyData = req.body;
 
     if (!bodyData.title)
-      throw new AppError('Type of person is needed.', 400);
+      throw new AppError('Type of title is needed.', 400);
 
     if (bodyData.priority != Priority.ALTA && bodyData.priority != Priority.MEDIA && bodyData.priority != Priority.BAIXA)
       throw new AppError('Priority is needed for ALTA, MEDIA, BAIXA .', 400);
